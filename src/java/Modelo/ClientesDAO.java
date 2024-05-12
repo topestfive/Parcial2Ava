@@ -21,6 +21,26 @@ public class ClientesDAO extends Conexion{
     ResultSet rs;
     int r;
     
+    public Cliente buscar(String dni){
+        Cliente cl=new Cliente();
+        String sql="SELECT * FROM cliente WHERE Dni="+dni;
+        try {
+            ps=con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            while(rs.next()){
+                cl.setId(rs.getInt("IdCliente"));
+                cl.setDni(rs.getString("Dni"));
+                cl.setNom(rs.getString("Nombres"));
+                cl.setDir(rs.getString("Direccion"));
+                cl.setEstado(rs.getString("Estado"));
+                cl.toString();
+            }
+        }catch(SQLException ex){
+            System.out.println("Error al ejecutar la sentencia Select "+ex);
+        }
+        return cl;
+    }
+    
     //Operaciones CRUD
 
     public List select(){

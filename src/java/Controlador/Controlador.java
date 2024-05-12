@@ -180,6 +180,16 @@ public class Controlador extends HttpServlet {
             request.getRequestDispatcher("Producto.jsp").forward(request, response);
         }
         if(menu.equals("NuevaVenta")){
+            switch(accion){
+                case "BuscarCliente":
+                    String dni=request.getParameter("codigoCliente");
+                    cl.setDni(dni);
+                    cl=cdao.buscar(dni);
+                    request.setAttribute("clien", cl);
+                    break;
+                default:
+                    request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);
+            }
             request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);
         }
     }

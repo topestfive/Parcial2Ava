@@ -8,52 +8,111 @@
         <title>Registrar Venta</title>
     </head>
     <body>
-        <div class="d-flex">
-            <div class="col-sm-4">
+        <div class="row">
+            <div class="col-sm-5">
                 <div class="card">
-                    <form>
+                    <form action="Controlador?menu=NuevaVenta" method="POST">
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Datos del cliente</label>
+                                <label class="form-label">Datos del cliente</label>
                             </div>
-                            <div class="form-group d-flex">
-                                <div class="col-sm-6 d-felx">
-                                    <input type="text" name="codigoCliente" class="form-control" placeholder="Código">
-                                    <input type="submit" name="accion" value="Buscar" class="btn btn-outline-info">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="input-group mb-3">
+                                        <input type="text" value="${clien.getDni()}" name="codigoCliente" class="form-control" placeholder="Código">
+                                        <input type="submit" name="accion" value="BuscarCliente" class="btn btn-outline-primary" >
+                                    </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="text" name="nombreCliente" class="form-control" placeholder="Datos cliente">
+                                    <div class="form-group">
+                                        <input type="text" name="nombreCliente" value="${clien.getNom()}" class="form-control" placeholder="Datos cliente">
+                                    </div>
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <label>Datos Producto</label>
+                                <label class="form-label">Datos Producto</label>
                             </div>
-                            <div class="form-group d-flex">
-                                <div class="col-sm-6 d-felx">
-                                    <input type="text" name="codigoProducto" class="form-control" placeholder="Código">
-                                    <input type="submit" name="accion" value="Buscar" class="btn btn-outline-info">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Código" aria-label="Código" aria-describedby="button-addon2">
+                                        <button class="btn btn-outline-primary" name="accion" type="button" id="button-addon2">Buscar producto</button>
+                                    </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="text" name="nombreCliente" class="form-control" placeholder="Datos producto">
+                                    <div class="form-group">
+                                        <input type="text" name="nombreProducto" class="form-control" placeholder="Datos producto">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-sm-6 d-felx">
-                                    <input type="text" name="precio" class="form-control" placeholder="$/.0.00">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" name="precio" class="form-control" placeholder="$/.0.00">
+                                    </div>
                                 </div>
                                 <div class="col-sm-3">
-                                    <input type="number" name="cant" class="form-control" placeholder="">
+                                    <div class="form-group">
+                                        <input type="number" name="cant" class="form-control" placeholder="">
+                                    </div>
                                 </div>
                                 <div class="col-sm-3">
-                                    <input type="text" name="stock" class="form-control" placeholder="Stock">
+                                    <div class="form-group">
+                                        <input type="text" name="stock" class="form-control" placeholder="Stock">
+                                    </div>
                                 </div>
+                            </div>
+                            <div class="d-flex form-group">
+                                <input type="submit" name="accion" value="Agregar" class="btn btn-primary mt-4">
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="col-sm-8">
-
+            <div class="col-sm-7">
+                <div class="card p-3">
+                    <div calss="card-body">
+                        <div class="row g-3 align-items-center ms-auto justify-content-end mb-3">
+                            <div class="col-auto">
+                                <label for="NroSerie" class="col-form-label me3">Nro.Serie: </label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="text" id="NroSerie" name="NroSerie" class="form-control">
+                            </div>
+                        </div>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nro</th>
+                                    <th>Código</th>
+                                    <th>Descripción</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Subtotal</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex">
+                            <input type="submit" name="accion" value="Genear venta" class="btn btn-success me-2">
+                            <input type="submit" name="accion" value="Cancelar" class="btn btn-danger">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

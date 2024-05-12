@@ -18,11 +18,11 @@
                             <label>Bienvenido al Sistema</label>
                         </div>
                         <div class="form-group mt-3">
-                            <label class="form-label">Usuario:</label>
+                            <label  for="txtuser" class="form-label">Usuario:</label>
                             <input type="text" name="txtuser" class="form-control mb-2" required>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Password:</label>
+                            <label for="txtpass" class="form-label">Password:</label>
                             <input type="password" name="txtpass" class="form-control" required>
                         </div>
                         <div class="d-grid gap-2">
