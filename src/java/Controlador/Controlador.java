@@ -4,9 +4,11 @@ import Modelo.Cliente;
 import Modelo.ClientesDAO;
 import Modelo.Empleado;
 import Modelo.EmpleadoDAO;
+import Modelo.GenerarSerie;
 import Modelo.Producto;
 import Modelo.ProductoDAO;
 import Modelo.Venta;
+import Modelo.VentaDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -36,6 +38,9 @@ public class Controlador extends HttpServlet {
     int cant;
     double subtotal;
     double totalPagar;
+
+    String numeroserie;
+    VentaDAO vdao = new VentaDAO();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -200,10 +205,13 @@ public class Controlador extends HttpServlet {
                 case "BuscarProducto":
                     int id = Integer.parseInt(request.getParameter("codigoproducto"));
                     pr = pdao.listarId(id);
+                    request.setAttribute("clien", cl);
                     request.setAttribute("producto", pr);
                     request.setAttribute("lista", lista);
+                    request.setAttribute("totalpagar", totalPagar);
                     break;
                 case "Agregar":
+                    request.setAttribute("clien", cl);
                     totalPagar = 0.0;
                     item = item + 1;
                     cod = pr.getId();
@@ -226,6 +234,16 @@ public class Controlador extends HttpServlet {
                     request.setAttribute("lista", lista);
                     break;
                 default:
+                    numeroserie = vdao.GenerarSerie();
+                    if (numeroserie == null) {
+                        numeroserie = "00000001";
+                        request.setAttribute("nserie", numeroserie);
+                    } else {
+                        int incrementar = Integer.parseInt(numeroserie);
+                        GenerarSerie gs = new GenerarSerie();
+                        numeroserie = gs.NumeroSerie(incrementar);
+                        request.setAttribute("nserie", numeroserie);
+                    }
                     request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);
             }
             request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);

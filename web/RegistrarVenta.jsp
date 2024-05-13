@@ -79,7 +79,7 @@
                                 <label for="NroSerie" class="col-form-label me3">Nro.Serie: </label>
                             </div>
                             <div class="col-auto">
-                                <input type="text" id="NroSerie" name="NroSerie" class="form-control">
+                                <input type="text" id="NroSerie" name="NroSerie" class="form-control" value="${nserie}">
                             </div>
                         </div>
                         <table class="table table-hover">
@@ -119,7 +119,7 @@
                             <input type="submit" name="accion" value="Cancelar" class="btn btn-danger">
                         </div>
                         <div class="col-sm-4 ml-auto">
-                            <input type="text" name="txtTotal" class="form-control" value="${totalpagar}">
+                            <input type="text" name="txtTotal" class="form-control" value="S/. ${totalpagar}0">
                         </div>
                     </div>
                 </div>
