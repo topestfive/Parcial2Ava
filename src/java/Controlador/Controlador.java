@@ -221,7 +221,7 @@ public class Controlador extends HttpServlet {
                     subtotal = precio * cant;
                     v = new Venta();
                     v.setItem(item);
-                    v.setId(cod);
+                    v.setIdproducto(cod);
                     v.setDescripcionP(descripcion);
                     v.setPrecio(precio);
                     v.setCantidad(cant);
@@ -232,6 +232,37 @@ public class Controlador extends HttpServlet {
                     }
                     request.setAttribute("totalpagar", totalPagar);
                     request.setAttribute("lista", lista);
+                    break;
+                case "GenerarVenta":
+                    v.setIdcliente(cl.getId());
+                    v.setIdempleado(2);
+                    v.setNumserie(numeroserie);
+                    v.setFecha("2024-05-12");
+                    v.setMonto(totalPagar);
+                    v.setEstado("1");
+                    vdao.guardarVenta(v);
+
+// Obtener el ID de ventas como una cadena
+                    String idVentasStr = vdao.IdVentas();
+
+// Valor predeterminado en caso de que la cadena sea nula o vacía
+                    int idv = 0;
+
+                    if (idVentasStr != null && !idVentasStr.isEmpty()) {
+                        idv = Integer.parseInt(idVentasStr); // Convertir la cadena a entero
+                    } else {
+                        // Manejar el caso en que la cadena sea nula o vacía
+                        // Por ejemplo, lanzar una excepción, mostrar un mensaje de error, etc.
+                    }
+
+                    for (int i = 0; i < lista.size(); i++) {
+                        v = new Venta();
+                        v.setId(idv);
+                        v.setIdproducto(lista.get(i).getIdproducto());
+                        v.setCantidad(lista.get(i).getCantidad());
+                        v.setPrecio(lista.get(i).getPrecio());
+                        vdao.guardarDetaleventas(v);
+                    }
                     break;
                 default:
                     numeroserie = vdao.GenerarSerie();
