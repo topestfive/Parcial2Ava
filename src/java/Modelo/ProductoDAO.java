@@ -66,6 +66,7 @@ public class ProductoDAO extends Conexion{
             ps=con.prepareStatement(sql);
             rs=ps.executeQuery();
             while(rs.next()){
+                pro.setId(rs.getInt("IdProducto"));
                 pro.setNom(rs.getString("Nombres"));
                 pro.setPrecio(rs.getString("Precio"));
                 pro.setStock(rs.getString("Stock"));
