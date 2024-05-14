@@ -17,16 +17,16 @@ public class Venta {
     String Numserie;
     String DescripcionP;
     String fecha;
-    Double precio;
+    double precio;
     int cantidad;
-    Double subtotal;
-    Double monto;
+    double subtotal;
+    double monto;
     String estado;
 
     public Venta() {
     }
 
-    public Venta(int id, int item, int idcliente, int idempleado, int idproducto, String Numserie, String DescripcionP, String fecha, Double precio, int cantidad, Double subtotal, Double monto, String estado) {
+    public Venta(int id, int item, int idcliente, int idempleado, int idproducto, String Numserie, String DescripcionP, String fecha, double precio, int cantidad, double subtotal, double monto, String estado) {
         this.id = id;
         this.item = item;
         this.idcliente = idcliente;
@@ -106,11 +106,11 @@ public class Venta {
         this.fecha = fecha;
     }
 
-    public Double getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 
@@ -122,19 +122,19 @@ public class Venta {
         this.cantidad = cantidad;
     }
 
-    public Double getSubtotal() {
+    public double getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(Double subtotal) {
+    public void setSubtotal(double subtotal) {
         this.subtotal = subtotal;
     }
 
-    public Double getMonto() {
+    public double getMonto() {
         return monto;
     }
 
-    public void setMonto(Double monto) {
+    public void setMonto(double monto) {
         this.monto = monto;
     }
 
@@ -145,5 +145,10 @@ public class Venta {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    @Override
+    public String toString() {
+        return "Venta{" + "id=" + id + ", item=" + item + ", idcliente=" + idcliente + ", idempleado=" + idempleado + ", idproducto=" + idproducto + ", Numserie=" + Numserie + ", DescripcionP=" + DescripcionP + ", fecha=" + fecha + ", precio=" + precio + ", cantidad=" + cantidad + ", subtotal=" + subtotal + ", monto=" + monto + ", estado=" + estado + '}';
+    }   
     
 }

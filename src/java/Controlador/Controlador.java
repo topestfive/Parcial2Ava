@@ -4,7 +4,7 @@ import Modelo.Cliente;
 import Modelo.ClientesDAO;
 import Modelo.Empleado;
 import Modelo.EmpleadoDAO;
-import Modelo.GenerarSerie;
+import config.GenerarSerie;
 import Modelo.Producto;
 import Modelo.ProductoDAO;
 import Modelo.Venta;
@@ -27,9 +27,18 @@ public class Controlador extends HttpServlet {
 
     Producto pr = new Producto(); //DTO Producto
     ProductoDAO pdao = new ProductoDAO(); //DAO Producto
-    int id;
 
-    Venta v = new Venta();
+    Venta v = new Venta(); //DTO Venta
+    VentaDAO vdao = new VentaDAO(); //DAO Venta
+
+    GenerarSerie gs = new GenerarSerie();
+
+    int ide;
+    int idc;
+    int idp;
+    int idrv;
+
+    //Variables registrar venta
     List<Venta> lista = new ArrayList<>();
     int item;
     int cod;
@@ -38,9 +47,7 @@ public class Controlador extends HttpServlet {
     int cant;
     double subtotal;
     double totalPagar;
-
     String numeroserie;
-    VentaDAO vdao = new VentaDAO();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -70,8 +77,8 @@ public class Controlador extends HttpServlet {
                     request.getRequestDispatcher("Controlador?menu=Empleado&accion=SELECT").forward(request, response);
                     break;
                 case "Editar":
-                    id = Integer.parseInt(request.getParameter("id"));
-                    Empleado e = edao.listarId(id);
+                    ide = Integer.parseInt(request.getParameter("id"));
+                    Empleado e = edao.listarId(ide);
                     request.setAttribute("empleado", e);
                     request.getRequestDispatcher("Controlador?menu=Empleado&accion=SELECT").forward(request, response);
                     break;
@@ -86,13 +93,13 @@ public class Controlador extends HttpServlet {
                     em.setTel(telU);
                     em.setEstado(estU);
                     em.setUser(userU);
-                    em.setId(id);
+                    em.setId(ide);
                     edao.update(em);
                     request.getRequestDispatcher("Controlador?menu=Empleado&accion=SELECT").forward(request, response);
                     break;
                 case "Eliminar":
-                    id = Integer.parseInt(request.getParameter("id"));
-                    edao.delete(id);
+                    ide = Integer.parseInt(request.getParameter("id"));
+                    edao.delete(ide);
                     request.getRequestDispatcher("Controlador?menu=Empleado&accion=SELECT").forward(request, response);
                     break;
                 default:
@@ -119,8 +126,8 @@ public class Controlador extends HttpServlet {
                     request.getRequestDispatcher("Controlador?menu=Clientes&accion=SELECT").forward(request, response);
                     break;
                 case "Editar":
-                    id = Integer.parseInt(request.getParameter("id"));
-                    Cliente c = cdao.listarId(id);
+                    idc = Integer.parseInt(request.getParameter("id"));
+                    Cliente c = cdao.listarId(idc);
                     request.setAttribute("cliente", c);
                     request.getRequestDispatcher("Controlador?menu=Clientes&accion=SELECT").forward(request, response);
                     break;
@@ -133,13 +140,13 @@ public class Controlador extends HttpServlet {
                     cl.setNom(nomU);
                     cl.setDir(dirU);
                     cl.setEstado(estU);
-                    cl.setId(id);
+                    cl.setId(idc);
                     cdao.update(cl);
                     request.getRequestDispatcher("Controlador?menu=Clientes&accion=SELECT").forward(request, response);
                     break;
                 case "Eliminar":
-                    id = Integer.parseInt(request.getParameter("id"));
-                    cdao.delete(id);
+                    idc = Integer.parseInt(request.getParameter("id"));
+                    cdao.delete(idc);
                     request.getRequestDispatcher("Controlador?menu=Clientes&accion=SELECT").forward(request, response);
                     break;
                 default:
@@ -166,8 +173,8 @@ public class Controlador extends HttpServlet {
                     request.getRequestDispatcher("Controlador?menu=Producto&accion=SELECT").forward(request, response);
                     break;
                 case "Editar":
-                    id = Integer.parseInt(request.getParameter("id"));
-                    Producto p = pdao.listarId(id);
+                    idp = Integer.parseInt(request.getParameter("id"));
+                    Producto p = pdao.listarId(idp);
                     request.setAttribute("producto", p);
                     request.getRequestDispatcher("Controlador?menu=Producto&accion=SELECT").forward(request, response);
                     break;
@@ -180,13 +187,13 @@ public class Controlador extends HttpServlet {
                     pr.setPrecio(precioU);
                     pr.setStock(stockU);
                     pr.setEstado(estU);
-                    pr.setId(id);
+                    pr.setId(idp);
                     pdao.update(pr);
                     request.getRequestDispatcher("Controlador?menu=Producto&accion=SELECT").forward(request, response);
                     break;
                 case "Eliminar":
-                    id = Integer.parseInt(request.getParameter("id"));
-                    pdao.delete(id);
+                    idp = Integer.parseInt(request.getParameter("id"));
+                    pdao.delete(idp);
                     request.getRequestDispatcher("Controlador?menu=Producto&accion=SELECT").forward(request, response);
                     break;
                 default:
@@ -203,8 +210,8 @@ public class Controlador extends HttpServlet {
                     request.setAttribute("clien", cl);
                     break;
                 case "BuscarProducto":
-                    int id = Integer.parseInt(request.getParameter("codigoproducto"));
-                    pr = pdao.listarId(id);
+                    idrv = Integer.parseInt(request.getParameter("codigoproducto"));
+                    pr = pdao.listarId(idrv);
                     request.setAttribute("clien", cl);
                     request.setAttribute("producto", pr);
                     request.setAttribute("lista", lista);
@@ -215,8 +222,8 @@ public class Controlador extends HttpServlet {
                     totalPagar = 0.0;
                     item = item + 1;
                     cod = pr.getId();
-                    descripcion = request.getParameter("nombreProducto");
-                    precio = Double.parseDouble(request.getParameter("precio"));
+                    descripcion = pr.getNom();
+                    precio = Double.parseDouble(pr.getPrecio());
                     cant = Integer.parseInt(request.getParameter("cant"));
                     subtotal = precio * cant;
                     v = new Venta();
@@ -233,50 +240,84 @@ public class Controlador extends HttpServlet {
                     request.setAttribute("totalpagar", totalPagar);
                     request.setAttribute("lista", lista);
                     break;
-                case "GenerarVenta":
-                    v.setIdcliente(cl.getId());
-                    v.setIdempleado(2);
-                    v.setNumserie(numeroserie);
-                    v.setFecha("2024-05-12");
-                    v.setMonto(totalPagar);
-                    v.setEstado("1");
-                    vdao.guardarVenta(v);
-
-// Obtener el ID de ventas como una cadena
-                    String idVentasStr = vdao.IdVentas();
-
-// Valor predeterminado en caso de que la cadena sea nula o vacía
-                    int idv = 0;
-
-                    if (idVentasStr != null && !idVentasStr.isEmpty()) {
-                        idv = Integer.parseInt(idVentasStr); // Convertir la cadena a entero
-                    } else {
-                        // Manejar el caso en que la cadena sea nula o vacía
-                        // Por ejemplo, lanzar una excepción, mostrar un mensaje de error, etc.
-                    }
-
+                case "Editar":
+                    idrv = Integer.parseInt(request.getParameter("item"));
+                    
+                    break;
+                case "Actualizar":
+                    String nomU = request.getParameter("txtNombres");
+                    String precioU = request.getParameter("txtPrecio");
+                    String stockU = request.getParameter("txtStock");
+                    String estU = request.getParameter("txtEstado");
+                    pr.setNom(nomU);
+                    pr.setPrecio(precioU);
+                    pr.setStock(stockU);
+                    pr.setEstado(estU);
+                    pr.setId(idp);
+                    pdao.update(pr);
+                    request.getRequestDispatcher("Controlador?menu=Producto&accion=SELECT").forward(request, response);
+                    break;
+                case "Eliminar":
+                    idrv = Integer.parseInt(request.getParameter("item"));
                     for (int i = 0; i < lista.size(); i++) {
-                        v = new Venta();
-                        v.setId(idv);
-                        v.setIdproducto(lista.get(i).getIdproducto());
-                        v.setCantidad(lista.get(i).getCantidad());
-                        v.setPrecio(lista.get(i).getPrecio());
-                        vdao.guardarDetaleventas(v);
+                        if (lista.get(i).getItem() == idrv) {
+                            lista.remove(i);
+                        }
+                    }
+                    totalPagar=0;
+                    for (int i = 0; i < lista.size(); i++) {
+                        totalPagar = totalPagar + lista.get(i).getSubtotal();
+                    }
+                    request.setAttribute("totalpagar", totalPagar);
+                    request.setAttribute("lista", lista);
+                    break;
+                case "GenerarVenta":
+                    if (lista.isEmpty()) {
+                        request.setAttribute("txtAlerta", "! No se pueden generar ventas sin productos. Agregue al menos un producto antes de continuar.");
+                    } else {
+                        for (int i = 0; i < lista.size(); i++) {
+                            Producto pr2 = new Producto();
+                            int cantidad = lista.get(i).getCantidad();
+                            int idproducto = lista.get(i).getIdproducto();
+                            ProductoDAO aO = new ProductoDAO();
+                            pr2 = aO.buscar(idproducto);
+                            int sac = Integer.parseInt(pr.getStock()) - cantidad;
+                            aO.actualizarStock(idproducto, sac);
+                        }
+
+                        v.setIdcliente(cl.getId());
+                        v.setIdempleado(2);
+                        v.setNumserie(numeroserie);
+                        v.setFecha("2024-05-12");
+                        v.setMonto(totalPagar);
+                        v.setEstado("1");
+                        vdao.guardarVenta(v);
+
+                        int idv = Integer.parseInt(vdao.IdVentas());
+
+                        for (int i = 0; i < lista.size(); i++) {
+                            v = new Venta();
+                            v.setId(idv);
+                            v.setIdproducto(lista.get(i).getIdproducto());
+                            v.setCantidad(lista.get(i).getCantidad());
+                            v.setPrecio(lista.get(i).getPrecio());
+                            vdao.guardarDetalleventas(v);
+                        }
+                        lista.clear();
+                        numeroserie = gs.VerificarNumeroSerie(numeroserie);
                     }
                     break;
+                case "Cancelar":
+                    item = 0;
+                    lista.clear();
+                    request.setAttribute("lista", lista);
+                    break;
                 default:
-                    numeroserie = vdao.GenerarSerie();
-                    if (numeroserie == null) {
-                        numeroserie = "00000001";
-                        request.setAttribute("nserie", numeroserie);
-                    } else {
-                        int incrementar = Integer.parseInt(numeroserie);
-                        GenerarSerie gs = new GenerarSerie();
-                        numeroserie = gs.NumeroSerie(incrementar);
-                        request.setAttribute("nserie", numeroserie);
-                    }
+                    numeroserie = gs.VerificarNumeroSerie(vdao.GenerarSerie());
+                    request.setAttribute("nserie", numeroserie);
                     request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);
             }
+            request.setAttribute("nserie", numeroserie);
             request.getRequestDispatcher("RegistrarVenta.jsp").forward(request, response);
         }
     }

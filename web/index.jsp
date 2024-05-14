@@ -14,7 +14,7 @@
                     <form class="form-sign" action="Validar" method="POST">
                         <div class="form-group text-center">
                             <h3>Login</h3>
-                            <img src="img/logo.jpg" alt="70" width="170"/>
+                            <img src="imagenes/logo.jpg" alt="70" width="170"/>
                             <label>Bienvenido al Sistema</label>
                         </div>
                         <div class="form-group mt-3">

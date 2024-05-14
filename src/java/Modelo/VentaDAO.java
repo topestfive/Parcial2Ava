@@ -4,6 +4,7 @@
  */
 package Modelo;
 
+import config.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -67,7 +68,7 @@ public class VentaDAO extends Conexion {
         return r;
     }
 
-    public int guardarDetaleventas(Venta venta) {
+    public int guardarDetalleventas(Venta venta) {
         String sql="insert into detalle_ventas(IdVentas, IdProducto, Cantidad, PrecioVenta) values(?,?,?,?)";
         try {
             ps = con.prepareStatement(sql);

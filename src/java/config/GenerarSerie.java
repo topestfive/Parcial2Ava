@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Modelo;
+package config;
 
 /**
  *
@@ -39,6 +39,17 @@ public class GenerarSerie {
         if (this.dato < 10) {
             numero = "0000000" + this.dato;
         }
-        return this.numero;
+        return numero;
     }
+
+    public String VerificarNumeroSerie(String num) {
+
+        if (num == null) {
+            return "00000001";
+        } else {
+            int incrementar = Integer.parseInt(num);
+            return NumeroSerie(incrementar);
+        }
+    }
+
 }

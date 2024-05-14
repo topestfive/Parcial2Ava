@@ -36,7 +36,7 @@
                         <ul class="dropdown-menu text-center">
                             <li>
                                 <a class="dropdown-item" href="#">
-                                    <img src="img/user.png" alt="60" width="60">
+                                    <img src="imagenes/user.png" alt="60" width="60">
                                 </a>
                             </li>
                             <li><a class="dropdown-item" href="#">${usuario.getUser()}</a></li>

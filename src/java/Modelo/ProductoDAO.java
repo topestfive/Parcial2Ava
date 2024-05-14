@@ -4,6 +4,7 @@
  */
 package Modelo;
 
+import config.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,6 +21,38 @@ public class ProductoDAO extends Conexion{
     PreparedStatement ps;
     ResultSet rs;
     int r;
+    
+    public Producto buscar(int id){
+        Producto p= new Producto();
+        String sql="SELECT * FROM producto WHERE IdProducto="+id;
+        try {
+            ps=con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            while(rs.next()){
+                p.setId(rs.getInt(1));
+                p.setNom(rs.getString(2));
+                p.setPrecio(rs.getString(3));
+                p.setStock(rs.getString(4));
+                p.setEstado(rs.getString(5));
+            }
+        }catch(SQLException ex){
+            System.out.println("Error al ejecutar la sentencia Select "+ex);
+        }
+        return p;
+    }
+
+    public int actualizarStock(int id, int stock){
+        String sql="UPDATE producto SET Stock=? WHERE IdProducto=?";
+        try {
+            ps=con.prepareStatement(sql);
+            ps.setInt(1, stock);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+        }catch(SQLException ex){
+            System.out.println("Error al ejecutar la sentencia Update "+ex);
+        }
+        return r;
+    }
     
     //Operaciones CRUD
 
