@@ -17,19 +17,19 @@
                             <form action="Controlador?menu=Clientes" method="POST">
                                 <div class="form-group mb-3">
                                     <label for="txtDni" class="form-label">Dni</label>
-                                    <input type="text" value="${cliente.getDni()}" id="txtDni" name="txtDni" class="form-control">
+                                    <input type="text" value="${cliente.getDni()}" id="txtDni" name="txtDni" class="form-control" required>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="txtNombres" class="form-label">Nombres</label>
-                                    <input  type="text" value="${cliente.getNom()}" id="txtNombres" name="txtNombres" class="form-control">
+                                    <input  type="text" value="${cliente.getNom()}" id="txtNombres" name="txtNombres" class="form-control" required>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="txtDir" class="form-label">Dirección</label>
-                                    <input  type="text" value="${cliente.getDir()}" id="txtDir" name="txtDir" class="form-control">
+                                    <input  type="text" value="${cliente.getDir()}" id="txtDir" name="txtDir" class="form-control" required>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="txtEstado" class="form-label">Estado</label>
-                                    <input  type="text" value="${cliente.getEstado()}" id="txtEstado" name="txtEstado" class="form-control">
+                                    <input  type="text" value="${cliente.getEstado()}" id="txtEstado" name="txtEstado" class="form-control" required>
                                 </div>
                                 <div class="d-flex justify-content-center">
                                     <input type="submit" name="accion" value="Agregar" class="btn btn-primary me-2 w-50">

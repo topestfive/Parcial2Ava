@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <input type="number" name="cant" value="1" class="form-control mb-2 mb-sm-2" placeholder="">
+                                        <input type="number" min="1" name="cant" value="1" class="form-control mb-2 mb-sm-2" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -143,8 +143,8 @@
                 </div>
             </div>
             <c:if test="${empty lista}">
-                <div class="text-info col-sm-5 align-items-center mt-3 ms-5">
-                    ${txtAlerta}
+                <div class="alert text-danger col-sm-5 align-items-center mt-3 ms-5">
+                    <strong>${txtAlerta}</strong>
                 </div>
             </c:if>
         </div>

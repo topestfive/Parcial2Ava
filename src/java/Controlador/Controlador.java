@@ -37,6 +37,8 @@ public class Controlador extends HttpServlet {
     int idc;
     int idp;
     int idrv;
+    
+    String dni;
 
     //Variables registrar venta
     List<Venta> lista = new ArrayList<>();
@@ -204,12 +206,14 @@ public class Controlador extends HttpServlet {
         if (menu.equals("NuevaVenta")) {
             switch (accion) {
                 case "BuscarCliente":
-                    String dni = request.getParameter("codigoCliente");
+                    dni = null;
+                    dni = request.getParameter("codigoCliente");
                     cl.setDni(dni);
                     cl = cdao.buscar(dni);
                     request.setAttribute("clien", cl);
                     break;
                 case "BuscarProducto":
+                    idrv = 0;
                     idrv = Integer.parseInt(request.getParameter("codigoproducto"));
                     pr = pdao.listarId(idrv);
                     request.setAttribute("clien", cl);
@@ -218,31 +222,37 @@ public class Controlador extends HttpServlet {
                     request.setAttribute("totalpagar", totalPagar);
                     break;
                 case "Agregar":
-                    request.setAttribute("clien", cl);
-                    totalPagar = 0.0;
-                    item = item + 1;
-                    cod = pr.getId();
-                    descripcion = pr.getNom();
-                    precio = Double.parseDouble(pr.getPrecio());
-                    cant = Integer.parseInt(request.getParameter("cant"));
-                    subtotal = precio * cant;
-                    v = new Venta();
-                    v.setItem(item);
-                    v.setIdproducto(cod);
-                    v.setDescripcionP(descripcion);
-                    v.setPrecio(precio);
-                    v.setCantidad(cant);
-                    v.setSubtotal(subtotal);
-                    lista.add(v);
-                    for (int i = 0; i < lista.size(); i++) {
-                        totalPagar = totalPagar + lista.get(i).getSubtotal();
+                    System.out.println(dni+"   "+idrv);
+                    if (idrv == 0 && dni == null) {
+                        request.setAttribute("txtAlerta", "! No se puede agregar sin productos o cliente !");
+                    } else {
+                        request.setAttribute("clien", cl);
+                        totalPagar = 0.0;
+                        item = item + 1;
+                        cod = pr.getId();
+                        descripcion = pr.getNom();
+                        precio = Double.parseDouble(pr.getPrecio());
+                        cant = Integer.parseInt(request.getParameter("cant"));
+                        subtotal = precio * cant;
+                        v = new Venta();
+                        v.setItem(item);
+                        v.setIdproducto(cod);
+                        v.setDescripcionP(descripcion);
+                        v.setPrecio(precio);
+                        v.setCantidad(cant);
+                        v.setSubtotal(subtotal);
+                        lista.add(v);
+                        for (int i = 0; i < lista.size(); i++) {
+                            totalPagar = totalPagar + lista.get(i).getSubtotal();
+                        }
+                        request.setAttribute("totalpagar", totalPagar);
+                        request.setAttribute("lista", lista);
+                        idrv = 0;
                     }
-                    request.setAttribute("totalpagar", totalPagar);
-                    request.setAttribute("lista", lista);
                     break;
                 case "Editar":
                     idrv = Integer.parseInt(request.getParameter("item"));
-                    
+
                     break;
                 case "Actualizar":
                     String nomU = request.getParameter("txtNombres");
@@ -264,7 +274,7 @@ public class Controlador extends HttpServlet {
                             lista.remove(i);
                         }
                     }
-                    totalPagar=0;
+                    totalPagar = 0;
                     for (int i = 0; i < lista.size(); i++) {
                         totalPagar = totalPagar + lista.get(i).getSubtotal();
                     }
@@ -273,7 +283,7 @@ public class Controlador extends HttpServlet {
                     break;
                 case "GenerarVenta":
                     if (lista.isEmpty()) {
-                        request.setAttribute("txtAlerta", "! No se pueden generar ventas sin productos. Agregue al menos un producto antes de continuar.");
+                        request.setAttribute("txtAlerta", "! No se pueden generar ventas sin productos. Agregue al menos un producto antes de continuar !");
                     } else {
                         for (int i = 0; i < lista.size(); i++) {
                             Producto pr2 = new Producto();

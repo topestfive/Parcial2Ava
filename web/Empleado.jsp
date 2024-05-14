@@ -17,23 +17,23 @@
                         <form action="Controlador?menu=Empleado" method="POST">
                             <div class="form-group mb-3">
                                 <label for="txtDni" class="form-label">Dni</label>
-                                <input type="text" value="${empleado.getDni()}" id="txtDni" name="txtDni" class="form-control">
+                                <input type="text" value="${empleado.getDni()}" id="txtDni" name="txtDni" class="form-control" required>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="txtNombres" class="form-label">Nombres</label>
-                                <input type="text" value="${empleado.getNom()}" id="txtNombres" name="txtNombres" class="form-control">
+                                <input type="text" value="${empleado.getNom()}" id="txtNombres" name="txtNombres" class="form-control" required>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="txtTel" class="form-label">Telefono</label>
-                                <input type="text" value="${empleado.getTel()}" id="txtTel" name="txtTel" class="form-control">
+                                <input type="text" value="${empleado.getTel()}" id="txtTel" name="txtTel" class="form-control" required>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="txtEstado" class="form-label">Estado</label>
-                                <input type="text" value="${empleado.getEstado()}" id="txtEstado" name="txtEstado" class="form-control">
+                                <input type="text" value="${empleado.getEstado()}" id="txtEstado" name="txtEstado" class="form-control" required>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="txtUser" class="form-label">Usuario</label>
-                                <input type="text" value="${empleado.getUser()}" id="txtUser" name="txtUser" class="form-control">
+                                <input type="text" value="${empleado.getUser()}" id="txtUser" name="txtUser" class="form-control" required>
                             </div>
                             <div class="d-flex justify-content-center">
                                 <input type="submit" name="accion" value="Agregar" class="btn btn-primary me-2 w-50">

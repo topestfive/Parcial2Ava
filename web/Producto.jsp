@@ -17,19 +17,19 @@
                             <form action="Controlador?menu=Producto" method="POST">
                                 <div class="form-group mb-3">
                                     <label for="txtNombres" class="form-label">Nombres</label>
-                                    <input type="text" value="${producto.getNom()}" id="txtNombres" name="txtNombres" class="form-control">
+                                    <input type="text" value="${producto.getNom()}" id="txtNombres" name="txtNombres" class="form-control" required>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="txtPrecio" class="form-label">Precio</label>
-                                    <input type="text" value="${producto.getPrecio()}" id="txtPrecio" name="txtPrecio" class="form-control">
+                                    <input type="text" value="${producto.getPrecio()}" id="txtPrecio" name="txtPrecio" class="form-control" required>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="txtStock" class="form-label">Stock</label>
-                                    <input type="text" value="${producto.getStock()}" id="txtStock" name="txtStock" class="form-control">
+                                    <input type="text" value="${producto.getStock()}" id="txtStock" name="txtStock" class="form-control" required>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="txtEstado" class="form-label">Estado</label>
-                                    <input type="text" value="${producto.getEstado()}" id="txtEstado" name="txtEstado" class="form-control">
+                                    <input type="text" value="${producto.getEstado()}" id="txtEstado" name="txtEstado" class="form-control" required>
                                 </div>
                                 <div class="d-flex justify-content-center">
                                     <input type="submit" name="accion" value="Agregar" class="btn btn-primary me-2 w-50">
