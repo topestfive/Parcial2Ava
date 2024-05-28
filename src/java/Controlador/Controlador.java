@@ -9,11 +9,13 @@ import Modelo.Producto;
 import Modelo.ProductoDAO;
 import Modelo.Venta;
 import Modelo.VentaDAO;
+
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +39,7 @@ public class Controlador extends HttpServlet {
     int idc;
     int idp;
     int idrv;
-    
+
     String dni;
 
     //Variables registrar venta
@@ -56,6 +58,16 @@ public class Controlador extends HttpServlet {
         String menu = request.getParameter("menu");
         String accion = request.getParameter("accion");
         if (menu.equals("Principal")) {
+            switch (accion) {
+                case "Salir":
+                    HttpSession misesion = request.getSession();
+                    misesion.removeAttribute("user");
+                    misesion.invalidate();
+                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    break;
+                default:
+                    throw new AssertionError();
+            }
             request.getRequestDispatcher("Principal.jsp").forward(request, response);
         }
         if (menu.equals("Empleado")) {
@@ -222,7 +234,7 @@ public class Controlador extends HttpServlet {
                     request.setAttribute("totalpagar", totalPagar);
                     break;
                 case "Agregar":
-                    System.out.println(dni+"   "+idrv);
+                    System.out.println(dni + "   " + idrv);
                     if (idrv == 0 && dni == null) {
                         request.setAttribute("txtAlerta", "! No se puede agregar sin productos o cliente !");
                     } else {
